@@ -2,20 +2,40 @@ import React from 'react'
 import classes from './FinishedQuiz.module.css'
 
 const FinishedQuiz = props => {
-    console.log(props.results);
+    
+    const resultArray = props.quiz.map((quizItem, index) => {
+        
+        const array =  Object.keys(quizItem.results)      
+        return console.log(array);
+    })
+    
+    // const newResultArray = resultArray[0].concat(resultArray[1])
+    // console.log(newResultArray);
+    // const successCount = newResultArray.reduce((total, key) => {
+    //     if(newResultArray[key] === props){
+
+    //     }
+    // })
+    
+    // console.log(Object.keys(props.quiz[props.activeQuestion].results));
+    // console.log(props.quiz);
+    // console.log(Object.keys(props.quiz[props.activeQuestion].results))
     return(
         <div className={classes.FinishedQuiz}>
+           
             <ul>
 
                 { props.quiz.map((quizItem, index) => {
-                    console.log(props.results[quizItem.id]);
-                    console.log(quizItem.id);
+                 
+                    
                     const cls =[
                         'fas',
-                        props.results[quizItem.id] === 'error' ? 'fa-times' : 'fa-check',
-                        classes[props.results[quizItem.id]]
+                        Object.keys(quizItem.results).length === 1 ? 'fa-check' : 'fa-times',
+                        Object.keys(quizItem.results).length === 1 ? classes['success'] : classes['error'],
+                        
                     ]
                     return (
+                        
                         <li 
                             key={index}
                         >
@@ -26,18 +46,9 @@ const FinishedQuiz = props => {
                         </li>
                     )
                 })}
-                {/* <li>
-                    <strong>1. </strong>
-                    {props.quiz[0].answers.id}
-                    <i className={'fas fa-times ' + classes.error}/>
-                </li>
-                <li>
-                    <strong>2. </strong>
-                    How are you
-                    <i className={'fas fa-check ' + classes.success}/>
-                </li> */}
+   
             </ul>
-            <p>Правильно 4 из 10</p>
+            <p>Правильно 4 из {props.quiz.length}</p>
 
             <div>
                 <button>Повторить</button>
